@@ -1,0 +1,10 @@
+{
+  "ip": "159.138.254.112",
+  "port": 3003,
+  "db": {
+    "username": "root",
+    "password": "@0mC`C~%cG`L",
+    "name": "backend_info",
+    "host": "127.0.0.1"
+  }
+}
