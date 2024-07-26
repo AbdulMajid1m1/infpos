@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout Code') {
+        stage('Checkout SCM') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AbdulMajid1m1/infpos.git']])
             }
@@ -9,17 +9,17 @@ pipeline {
         stage('Install Dependencies - Backend') {
             steps {
                 dir('infypos_backend') {
-                    bat 'npm install'
+                    bat 'npm ci'
                 }
             }
         }
-        stage('Manage Backend Process') {
+        stage('Start Backend') {
             steps {
-                script {
-                    // Stop the backend process if it's running
+                dir('infypos_backend') {
+                    // Stop and delete the process if it exists
                     bat 'pm2 stop pos_backend || exit 0'
-                    // Delete the process from PM2 if it exists
                     bat 'pm2 delete pos_backend || exit 0'
+                    
                     // Start the backend with PM2
                     bat 'pm2 start npm --name "pos_backend" -- start'
                 }
