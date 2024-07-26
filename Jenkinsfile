@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    triggers {
-        githubPush() // This will trigger the build on GitHub push events
-    }
     stages {
         stage('Checkout Code') {
             steps {
@@ -16,19 +13,15 @@ pipeline {
                 }
             }
         }
-        stage('Start Backend') {
+        stage('Manage Backend Process') {
             steps {
-                dir('infypos_backend') {
-                    script {
-                        // Check if PM2 process is already running
-                        def processStatus = bat(script: 'pm2 list', returnStdout: true).trim()
-                        if (processStatus.contains('pos_backend')) {
-                            echo 'Process pos_backend is already running.'
-                        } else {
-                            // Start the backend with PM2
-                            bat 'pm2 start npm --name "pos_backend" -- start'
-                        }
-                    }
+                script {
+                    // Stop the backend process if it's running
+                    bat 'pm2 stop pos_backend || exit 0'
+                    // Delete the process from PM2 if it exists
+                    bat 'pm2 delete pos_backend || exit 0'
+                    // Start the backend with PM2
+                    bat 'pm2 start npm --name "pos_backend" -- start'
                 }
             }
         }
