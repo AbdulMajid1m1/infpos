@@ -9,7 +9,7 @@ pipeline {
         stage('Install Dependencies - Backend') {
             steps {
                 dir('infypos_backend') {
-                    bat 'npm ci'
+                    bat 'npm i'
                 }
             }
         }

@@ -49,6 +49,7 @@
     "pm2": "^5.2.2",
     "sequelize": "^6.30.0",
     "socket.io": "^4.5.4",
+    "tedious": "^18.3.0",
     "twilio": "^4.9.0"
   },
   "devDependencies": {
