@@ -1,14 +1,18 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("variations", {
+    await queryInterface.createTable("variation_types", {
       id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      fk_variation_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {
@@ -23,8 +27,7 @@ module.exports = {
       },
     });
   },
-
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("variations");
+    await queryInterface.dropTable("variation_types");
   },
 };

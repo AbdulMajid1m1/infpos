@@ -9,7 +9,7 @@ pipeline {
         stage('Install Dependencies - Backend') {
             steps {
                 dir('infypos_backend') {
-                    bat 'npm ci'
+                    bat 'npm i'
                 }
             }
         }
@@ -19,9 +19,9 @@ pipeline {
                     // Stop and delete the process if it exists
                     bat 'pm2 stop pos_backend || exit 0'
                     bat 'pm2 delete pos_backend || exit 0'
-                    
+
                     // Start the backend with PM2
-                    bat 'pm2 start npm --name "pos_backend" -- start'
+                    bat 'pm2 start server.js --name pos_backend'
                 }
             }
         }

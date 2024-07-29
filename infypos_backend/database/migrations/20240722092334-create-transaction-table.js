@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('transactions', {
+    await queryInterface.createTable("transactions", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       date: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
       },
       from_warehouse_id: {
         type: Sequelize.INTEGER,
@@ -23,47 +23,65 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       order_tax: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
       },
       discount: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
       },
       shipping: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       payment_status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+      },
+      payment_type: {
+        type: Sequelize.STRING,
+      },
+      paid: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: true,
+      },
+      due: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: true,
       },
       note: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       reference: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       transaction_type: {
-        type: Sequelize.ENUM('sale', 'purchase', 'transfer'),
-        allowNull: false
+        type: Sequelize.ENUM(
+          "sale",
+          "purchase",
+          "transfer",
+          "sale_return",
+          "purchase_return",
+          "quotation"
+        ),
+        allowNull: false,
       },
       grand_total: {
-        type: Sequelize.DECIMAL(10, 2)
+        type: Sequelize.DECIMAL(10, 2),
       },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: Sequelize.NOW,
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
-      }
+        defaultValue: Sequelize.NOW,
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('transactions');
-  }
+    await queryInterface.dropTable("transactions");
+  },
 };

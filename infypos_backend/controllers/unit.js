@@ -34,7 +34,7 @@ module.exports = {
   getUnits: async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
     commonController.getEntities(Units, page, limit, res, [
-      { model: BaseUnits, as: "BaseUnit" },
+      { model: BaseUnits },
     ]);
   },
 
