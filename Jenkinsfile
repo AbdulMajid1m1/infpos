@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    environment {
+        NODE_ENV = "development"
+    }
+
     stages {
         stage('Checkout SCM') {
             steps {
@@ -9,8 +14,13 @@ pipeline {
         stage('Install Dependencies - Backend') {
             steps {
                 dir('infypos_backend') {
-                    bat 'npm i'
+                    bat 'npm install'
                 }
+            }
+        }
+        stage('Check NPM Configuration') {
+            steps {
+                bat 'type %USERPROFILE%\\.nvm\\v20.10.0\\NPM.CMD'
             }
         }
         stage('Start Backend') {
