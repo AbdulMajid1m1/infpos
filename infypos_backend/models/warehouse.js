@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     Warehouse.hasMany(models.Expenses, {
       foreignKey: "fk_warehouse_id",
     });
+    Warehouse.hasMany(models.Adjustments, { foreignKey: "fk_warehouse_id" });
   };
   return Warehouse;
 };

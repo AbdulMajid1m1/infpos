@@ -46,10 +46,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      multiple_image: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       fk_warehouse_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
@@ -62,8 +58,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "Received",
       },
-      fk_product_type_id: {
-        type: DataTypes.INTEGER,
+      product_type: {
+        type: DataTypes.ENUM("single", "variation"),
         allowNull: true,
       },
     },
@@ -80,16 +76,31 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "fk_brand_id",
       as: "brand",
     });
-    Product.belongsToMany(models.Variations, {
-      through: "ProductVariations",
-      foreignKey: "product_id",
-      otherKey: "variation_id",
-      as: "variations",
+    Product.belongsTo(models.BaseUnits, {
+      foreignKey: "fk_product_unit_id",
+      as: "product_unit",
+    });
+    Product.belongsTo(models.Units, {
+      foreignKey: "fk_sale_unit_id",
+      as: "sale_unit",
+    });
+    Product.belongsTo(models.Units, {
+      foreignKey: "fk_purchase_unit_id",
+      as: "purchase_unit",
     });
     Product.hasMany(models.TransactionProducts, {
       foreignKey: "product_id",
       as: "transactionProducts",
     });
+    Product.hasMany(models.ProductImages, {
+      foreignKey: "fk_product_id",
+      as: "images",
+    });
+    Product.hasMany(models.ProductTypes, {
+      foreignKey: "product_id",
+      as: "variation",
+    });
+    Product.hasMany(models.AdjustmentProducts, { foreignKey: "fk_product_id" });
   };
   return Product;
 };

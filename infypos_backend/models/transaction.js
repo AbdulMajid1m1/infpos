@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     reference: DataTypes.STRING,
     transaction_type: DataTypes.ENUM('sale', 'purchase', 'transfer'),
     grand_total: DataTypes.DECIMAL(10, 2),
+    payment_type: DataTypes.STRING,
+    paid: DataTypes.DECIMAL(10, 2),
+    due: DataTypes.DECIMAL(10, 2),
   }, { timestamps: true });
 
   Transaction.associate = (models) => {
@@ -22,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'transaction_id',
       otherKey: 'product_id'
     });
+    Transaction.hasMany(models.TransactionProducts, { foreignKey: 'transaction_id' });
   };
 
   return Transaction;

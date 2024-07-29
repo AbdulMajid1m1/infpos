@@ -4,6 +4,7 @@ const {
   Products,
   Warehouses,
   Users,
+  sequelize,
 } = require("../models");
 const { isEmpty, isNull } = require("lodash");
 const { Op } = require("sequelize");
@@ -111,7 +112,37 @@ module.exports = {
           { model: Warehouses, as: "fromWarehouse" },
           { model: Warehouses, as: "Warehouse" },
           { model: Users, as: "User" },
-          { model: Products, through: { attributes: [] } },
+          {
+            model: TransactionProducts,
+            include: [{ model: Products, as: "product" }],
+          },
+        ],
+        attributes: [
+          "id",
+          "date",
+          "from_warehouse_id",
+          "order_tax",
+          "discount",
+          "shipping",
+          "status",
+          "payment_status",
+          "note",
+          "reference",
+          "transaction_type",
+          "grand_total",
+          "createdAt",
+          "updatedAt",
+          "fk_warehouse_id",
+          "fk_user_id",
+          [
+            sequelize.literal(`(
+                SELECT COUNT(*)
+                FROM transaction_products 
+                WHERE
+                  transaction_products.transaction_id = transactions.id
+              )`),
+            "product_count",
+          ],
         ],
       });
 

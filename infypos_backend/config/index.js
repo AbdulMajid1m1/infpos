@@ -45,6 +45,13 @@ var config = convict({
       default: null,
     },
   },
+  auth: {
+    secret: {
+      doc: "secret key",
+      format: String,
+      default: "",
+    },
+  },
 });
 
 // Load environment dependent configuration
