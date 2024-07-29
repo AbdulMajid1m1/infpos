@@ -1,7 +1,7 @@
 const config = require("./index.js");
 
 module.exports = {
-  dialect: "mysql",
+  dialect: "mssql",
   database: config.get("db.name"),
   username: config.get("db.username"),
   password: config.get("db.password"),

@@ -1,10 +1,13 @@
 {
-  "ip": "159.138.254.112",
+  "ip": "173.249.56.16",
   "port": 3003,
   "db": {
-    "username": "root",
-    "password": "@0mC`C~%cG`L",
-    "name": "backend_info",
-    "host": "127.0.0.1"
+    "username": "sa",
+    "password": "its2514LOVE!",
+    "name": "pos",
+    "host": "173.249.56.16"
+  },
+  "auth": {
+    "secret": "nartec-secret-key"
   }
 }

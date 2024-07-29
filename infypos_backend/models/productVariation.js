@@ -6,21 +6,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      types: {
-        type: DataTypes.JSON,
-        allowNull: false,
-      },
     },
     {
       timestamps: true,
     }
   );
   Variation.associate = (models) => {
-    Variation.belongsToMany(models.Products, {
-      through: "ProductVariations",
-      foreignKey: "variation_id",
-      otherKey: "product_id",
-      as: "products",
+    Variation.hasMany(models.VariationTypes, {
+      foreignKey: "fk_variation_id",
+      as: "variationTypes",
     });
   };
   return Variation;
